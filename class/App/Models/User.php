@@ -41,6 +41,15 @@ class User extends AbstractTable{
         return $this->roles;
     }
 
+    public function toArray(){
+        $userArray = [
+            $this->name,
+            $this->email,
+            password_hash($this->password,PASSWORD_DEFAULT)
+        ];
+        return $userArray;
+    }
+
     public function validate() : array
     {
         $errors = [];

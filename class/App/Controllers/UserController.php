@@ -2,6 +2,7 @@
 namespace App\Controllers;
 use App\Controllers\Controller;
 use App\Models\User;
+use App\Models\UserManager;
 
 class UserController extends Controller{
 
@@ -19,8 +20,17 @@ class UserController extends Controller{
             // Si la méthode validate ne retourne pas d'erreurs on fait l'insert dans la table
             $errors = $user->validate();
             if (empty($errors)){
-
-                echo "C'est gang ! On peut insérer l'utilisateur !";
+                // On transforme l'objet User courant en tableau
+                // Avec uniquement les valeurs des propriétés
+                // Voir la methode toArray() dans User.php
+                $userArray = $user->toArray();
+                // On instancie un UserManager
+                $userManager = new UserManager();
+                // On effectue l'insert dans la table
+                $insert = $userManager->insert( $userArray );
+                // On est très content !
+                echo "<p>C'est gang ! On a inséré l'utilisateur !</p>";
+                echo "<p>Son id est {$insert->lastInsertId()}</p>";
                 die();
 
             }
