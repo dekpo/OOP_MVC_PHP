@@ -1,8 +1,8 @@
 <?php
 namespace App\Models;
-use App\Models\Table;
+use App\Models\AbstractTable;
 
-class User extends Table{
+class User extends AbstractTable{
 
     private ?string $name = null;
     private ?string $email = null;
