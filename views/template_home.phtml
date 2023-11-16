@@ -1,3 +1,48 @@
-<pre>
-<?php var_dump($data); ?>
-</pre>
+<?php
+/**
+ * Il peut s'avérer pratique de récupérer ici $data
+ * Et éventuellement de déclarer des variables de traitement
+ * */
+$pictures = $data['pictures'];
+?>
+<h1 class="text-center">Home of <br><?= CONFIG_SITE_TITLE ?></h1>
+
+<!-- DEBUT DU CAROUSEL -->
+<div id="homeCarousel" class="carousel slide" data-bs-touch="true">
+
+  <!-- DIV DES BOUTONS DU CAROUSEL EN BAS -->
+  <div class="carousel-indicators">
+    <!-- PREMIERE BOUCLE POUR AFFICHER LES BOUTONS EN BAS -->
+    <!-- ON FAIT UNE BOUCLE PHP FOREACH POUR CHAQUE PIC -->
+    <!-- LA VARIABLE $key ICI PERMET D'AVOIR UN DECOMPTE 0, 1, 2 POUR FAIRE FONCTIONNER LE SLIDER -->
+    <?php foreach ($pictures as $key => $pic) : ?>
+      <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="<?= $key ?>" <?php if ($key === array_key_first($pictures)) echo 'class="active" aria-current="true"'; ?> aria-label="Slide <?= $key + 1 ?>"></button>
+    <?php endforeach ?>
+    <!-- FIN DE LA BOUCLE FOREACH DES BOUTONS DU BAS DU CAROUSEL -->
+  </div>
+
+  <!-- DIV DU CONTENU DU CAROUSEL DONC DES SLIDES -->
+  <div class="carousel-inner">
+    <!-- DEUXIEME BOUCLE FOREACH POUR AFFICHER CHAQUE PIC AVEC SRC TITLE ET DESCRIPTION -->
+    <?php foreach ($pictures as $key => $pic) : ?>
+      <div class="carousel-item <?php if ($key === array_key_first($pictures)) echo 'active' ?>">
+        <img src="<?= $pic['src'] ?>" class="d-block w-100" alt="<?= $pic['title'] ?>">
+        <div class="carousel-caption d-none d-md-block">
+          <h5><?= $pic['title'] ?></h5>
+          <p><?= $pic['description'] ?></p>
+        </div>
+      </div>
+    <?php endforeach ?>
+    <!-- FIN DE LA FIN DE LA BOUCLE  -->
+  </div>
+  <!-- FIN DIV DU CONTENU DU CAROUSEL -->
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#homeCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>

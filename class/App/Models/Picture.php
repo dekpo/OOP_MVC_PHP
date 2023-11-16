@@ -13,22 +13,27 @@ class Picture extends AbstractTable
 
     public function setTitle($title){
         $this->title = $title;
+        return $this;
     }
 
     public function setDescription($description){
         $this->description = $description;
+        return $this;
     }
 
     public function setSrc($src){
         $this->src = $src;
+        return $this;
     }
 
     public function setAuthor($author){
         $this->author = $author;
+        return $this;
     }
 
     public function setUpdatedAt(){
         $this->updatedAt = date("Y-m-d H:i:s");
+        return $this;
     }
 
     public function toArray(){

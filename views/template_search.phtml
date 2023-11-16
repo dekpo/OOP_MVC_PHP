@@ -1,0 +1,14 @@
+<?php
+/**
+ * Il peut s'avérer pratique de récupérer ici $data
+ * Et éventuellement de déclarer des variables de traitement
+ * */
+$pictures = $data['pictures'];
+?>
+<h1 class="text-center">Search</h1>
+<h2 class="text-center">Found <?= count($pictures) ?> result(s)</h2>
+<section class="row">
+<?php foreach ($pictures as $pic) : 
+  include("./views/components/pic_card.phtml");
+  endforeach ?>
+</section>

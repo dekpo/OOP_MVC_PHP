@@ -117,11 +117,11 @@ class PictureController extends Controller
         // Sans oublier de préciser l'id
         if (isset($_POST['submit'])) {
             $newPic = new Picture();
-            $newPic->setTitle($_POST['title']);
-            $newPic->setDescription($_POST['description']);
-            $newPic->setSrc($_POST['src']);
-            $newPic->setAuthor($_POST['author']);
-            $newPic->setUpdatedAt(date('Y-m-d H:i:s'));
+            $newPic->setTitle($_POST['title'])
+            ->setDescription($_POST['description'])
+            ->setSrc($_POST['src'])
+            ->setAuthor($_POST['author'])
+            ->setUpdatedAt(date('Y-m-d H:i:s'));
 
             $pictureArray = $newPic->toArray();
             $pictureArray[] = $id;
