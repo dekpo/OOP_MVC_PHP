@@ -33,6 +33,11 @@ class PictureManager
         return $addPic;
     }
 
+    public function update($data=[]){
+        $updatePic = $this->db->query("UPDATE picture SET title=?, description=?, src=?, author=?, updated_at=? WHERE id=?",$data);
+        return $updatePic;
+    }
+
     public function delete($id=null)
     {
         if (!is_null($id)) {
@@ -41,4 +46,5 @@ class PictureManager
         }
         return false;
     }
+
 }

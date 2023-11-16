@@ -40,14 +40,19 @@ class Router
 
     public function run()
     {
-        $page = $this->getPage();
-        $action = $this->getAction();
+        $action = 'index';
         $controllerName = 'App\Controllers\\NotFoundController';
 
         // On charge le controller correspondant
         // En déterminant le nom du controller ex:HomeController
-        if (file_exists("./class/App/Controllers/" . ucfirst($page) . 'Controller.php')) {
-            $controllerName = 'App\Controllers\\' . ucfirst($page) . 'Controller';
+        // Si le fichier existe
+        if (file_exists("./class/App/Controllers/" . ucfirst($this->getPage()) . 'Controller.php')) {
+            $controllerName = 'App\Controllers\\' . ucfirst($this->getPage()) . 'Controller';
+        }
+        // On définit la méthode correspondante
+        // Si elle existe
+        if (method_exists($controllerName,$this->getAction())) {
+            $action = $this->getAction();
         }
             // On peut déterminer ensuite le fichier à charger
             // On instancie la class ex: new HomeController()

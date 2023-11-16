@@ -1,0 +1,45 @@
+<?php
+/**
+ * Il peut s'avérer pratique de récupérer ici $data
+ * Et éventuellement de déclarer des variables de traitement
+ * */
+$pictures = $data['pictures'];
+?>
+<h1 class="text-center">Admin Picture</h1>
+<a href="?page=picture&action=new" class="btn btn-primary m-1">Add Picture</a>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Source</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Author</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  <?php foreach ($pictures as $pic) : ?>
+    <tr>
+      <th scope="row"><?= $pic['id'] ?></th>
+      <td><img width="80" src="<?= $pic['src'] ?>" alt="<?= $pic['title'] ?>"></td>
+      <td><?= $pic['title'] ?></td>
+      <td><?= $pic['description'] ?></td>
+      <td><?= $pic['author'] ?></td>
+      <td>
+        <a href="?page=picture&action=edit&id=<?= $pic['id'] ?>" class="btn btn-success m-1">Update</a>
+        <a href="javascript:deletePicture(<?= $pic['id'] ?>)" class="btn btn-warning m-1">Delete</a>
+      </td>
+    </tr>
+  <?php endforeach ?>
+  </tbody>
+  </table>
+  <script>
+    function deletePicture(id){
+      const question = window.confirm("Are you sure you want to delete "+id+" ?");
+      if (question){
+        location.href="?page=picture&action=delete&id="+id;
+      }
+    }
+  </script>
+<a href="?page=picture&action=new" class="btn btn-primary m-1">Add Picture</a>

@@ -9,5 +9,6 @@ const CONFIG_SITE_TITLE = "The OOP MVC PHP";
 const CONFIG_ROUTES = [
     "home" => "Home",
     "gallery" => "Gallery",
-    "user" => "User"
+    "user" => "User",
+    "picture" => "Picture"
 ];

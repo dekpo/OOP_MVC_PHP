@@ -1,0 +1,42 @@
+<?php
+/**
+ * Il peut s'avérer pratique de récupérer ici $data
+ * Et éventuellement de déclarer des variables de traitement
+ * */
+$errors = $data['errors'];
+$success = $data['success']; 
+?>
+<h1 class="mb-3 text-center">Admin Add Picture</h1>
+<?php if (!empty($errors)) : ?>
+    <div class="alert alert-danger" role="alert">
+        <?php foreach ($errors as $error) : ?>
+            <p><?= $error ?></p>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
+<?php if ($success) : ?>
+    <div class="alert alert-success" role="alert">
+            <p>Le fichier a été uploadé avec succes !</p>
+    </div>
+<?php endif; ?>
+<form method="POST" enctype="multipart/form-data">
+  <div class="mb-3">
+    <label for="title" class="form-label">Title</label>
+    <input type="text" class="form-control" name="title" id="title" placeholder="Title">
+  </div>
+  <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <input type="text" class="form-control" name="description" id="description" placeholder="Description">
+  </div>
+  <div class="mb-3">
+    <label for="src" class="form-label">File</label>
+    <input type="file" class="form-control" name="src" id="src" placeholder="Upload File">
+  </div>
+  <div class="mb-3">
+    <label for="author" class="form-label">Author</label>
+    <input type="text" class="form-control" name="author" id="author" placeholder="Author">
+  </div>
+  <div class="mb-3">
+    <input type="submit" class="btn btn-primary" name="submit" value="Add Picture">
+  </div>
+</form>
