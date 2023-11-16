@@ -1,16 +1,43 @@
-<h1>New User</h1>
-<pre>
-<h2 class="h3">$data</h2>
-<?php @print_r($data); ?>
-</pre>
-<form method="POST">
-  <div class="mb-3">
-    <label for="name" class="form-label">Name</label>
-    <input type="text" required class="form-control" id="name" name="name" placeholder="Your name">
-    <label for="email" class="form-label">Email</label>
-    <input type="email" required class="form-control" id="email" name="email" placeholder="Your email">
-    <label for="password" class="form-label">Password</label>
-    <input type="password" required class="form-control" id="password" name="password" placeholder="Your password">
-    <button class="mt-4 btn btn-primary" type="submit" id="send" name="submit">Send</button>
-  </div>
-</form>
+<?php
+/**
+ * Il peut s'avérer pratique de récupérer ici $data
+ * Et éventuellement de déclarer des variables de traitement
+ * */
+$users = $data['users'];
+?>
+<h1 class="text-center">Admin User</h1>
+<a href="?page=user&action=new" class="btn btn-primary m-1">Add User</a>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Roles</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  <?php foreach ($users as $user) : ?>
+    <tr>
+      <th scope="row"><?= $user['id'] ?></th>
+      <td><?= $user['name'] ?></td>
+      <td><?= $user['email'] ?></td>
+      <td><?php print_r($user['roles']) ?></td>
+      <td>
+        <a href="?page=user&action=edit&id=<?= $user['id'] ?>" class="btn btn-success m-1">Update</a>
+        <a href="javascript:deleteUser(<?= $user['id'] ?>)" class="btn btn-warning m-1">Delete</a>
+      </td>
+    </tr>
+  <?php endforeach ?>
+  </tbody>
+  </table>
+  <script>
+    function deleteUser(id){
+      const question = window.confirm("Are you sure you want to delete user "+id+" ?");
+      if (question){
+        location.href="?page=user&action=delete&id="+id;
+      }
+    }
+  </script>
+  <a href="?page=user&action=new" class="btn btn-primary m-1">Add User</a>

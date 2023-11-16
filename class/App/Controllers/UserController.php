@@ -7,6 +7,14 @@ use App\Models\UserManager;
 class UserController extends Controller{
 
     public function index(){
+        $user = new UserManager();
+        $users = $user->getAll();
+        $this->render('./views/template_user.phtml',[
+            'users' => $users
+        ]);
+    }
+
+    public function new(){
         // On instancie la class User pour créer un nouvel utilisateur
         $user = new User();
         // On anticipe d'éventuelles erreurs en créant un tableau
@@ -29,13 +37,12 @@ class UserController extends Controller{
                 // On effectue l'insert dans la table
                 $insert = $userManager->insert( $userArray );
                 // On est très content !
-                echo "<p>C'est gang ! On a inséré l'utilisateur !</p>";
-                echo "<p>Son id est {$insert->lastInsertId()}</p>";
-                die();
+                // ON redirige !
+                header('Location:?page=user');
 
             }
         }
-        $this->render('./views/template_user.phtml',[
+        $this->render('./views/template_user_new.phtml',[
             '$_POST' => $_POST,
             'user' => $user,
             'errors' => $errors
