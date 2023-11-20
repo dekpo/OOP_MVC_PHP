@@ -9,6 +9,12 @@ class Authenticator
         if (!isset($_SESSION)) session_start();
     }
 
+    public static function isNotGranted(string $role): bool
+    {
+        $check = (!isset($_SESSION['user']) || !in_array($role,json_decode($_SESSION['user']['roles'])));
+        return $check; 
+    }
+
     public function setSessionData(array $userData): void
     {
         $_SESSION['user'] = $userData;

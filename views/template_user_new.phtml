@@ -1,7 +1,19 @@
-<h1>New User</h1>
-<pre>
-<?php @print_r($data); ?>
-</pre>
+<?php
+
+/**
+ * Il peut s'avérer pratique de récupérer ici $data
+ * Et éventuellement de déclarer des variables de traitement
+ * */
+$errors = $data['errors'];
+?>
+<h1 class="tex-center">New User</h1>
+<?php if (!empty($errors)) : ?>
+  <div class="alert alert-danger" role="alert">
+    <?php foreach ($errors as $error) : ?>
+      <p><?= $error ?></p>
+    <?php endforeach; ?>
+  </div>
+<?php endif; ?>
 <form method="POST">
   <div class="mb-3">
     <label for="name" class="form-label">Name</label>
@@ -10,6 +22,18 @@
     <input type="email" required class="form-control" id="email" name="email" placeholder="Your email">
     <label for="password" class="form-label">Password</label>
     <input type="password" required class="form-control" id="password" name="password" placeholder="Your password">
+    <div class="form-check mt-3">
+      <input class="form-check-input" type="radio" id="roles" name="roles" value="ROLE_MEMBER">
+      <label class="form-check-label" for="roles">ROLE_MEMBER</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" id="roles" name="roles" value="ROLE_MEMBER,ROLE_EDITOR">
+      <label class="form-check-label" for="roles">ROLE_EDITOR</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" id="roles" name="roles" value="ROLE_MEMBER,ROLE_EDITOR,ROLE_ADMIN">
+      <label class="form-check-label" for="roles">ROLE_ADMIN</label>
+    </div>
     <button class="mt-4 btn btn-primary" type="submit" id="send" name="submit">Send</button>
   </div>
 </form>

@@ -44,6 +44,9 @@
         p{
             margin-bottom: 5px;
         }
+        .img-fluid{
+            width:100%;
+        }
     </style>
 </head>
 
@@ -77,10 +80,14 @@
                             </li>
                             <li><a class="dropdown-item" href="?page=register">Register</a></li>
                             <?php else: ?>
-                            <li><a class="dropdown-item" href="?page=admin_list">Admin</a></li>
+                            <?php if (!App\Services\Authenticator::isNotGranted("ROLE_ADMIN")): ?>
+                            <li><a class="dropdown-item" href="?page=admin">Admin</a></li>
+                            <li><a class="dropdown-item" href="?page=picture">Picture</a></li>
+                            <li><a class="dropdown-item" href="?page=user">User</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
+                            <?php endif ?>
                             <li><a class="dropdown-item" href="?page=logout">Logout</a></li>
                             <?php endif ?>
                         </ul>

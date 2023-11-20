@@ -1,0 +1,21 @@
+<?php
+/**
+ * Il peut s'avérer pratique de récupérer ici $data
+ * Et éventuellement de déclarer des variables de traitement
+ * */
+$pic = $data['picture'];
+?><h1 class="mb-3 text-center"><?= $pic['title'] ?></h1>
+<section class="row">
+    <div class="col-12">
+        <img src="<?= $pic['src'] ?>" alt="<?= $pic['title'] ?>" class="img-fluid">
+    </div>
+    <div class="col-12 mt-3">
+        <p><?= $pic['description'] ?></p>
+    </div>
+    <div class="col-6 mt-3 fst-italic font-weight-light">
+        <p>Created At: <?= $pic['created_at'] ?> | Updated At: <?= $pic['updated_at'] ?></p>
+    </div>
+    <div class="col-6 mt-3 fst-italic font-weight-light">
+        <p><?= $pic['author'] ?></p>
+    </div>
+</section>

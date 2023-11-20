@@ -5,36 +5,17 @@ namespace App\Controllers;
 use App\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserManager;
-use App\Services\Authenticator;
 
-class UserController extends Controller
+class RegisterController extends Controller
 {
-
-    public function __construct()
-    {
-        if (Authenticator::isNotGranted("ROLE_ADMIN")) { 
-            header("Location:?page=login");
-        }
-    }
 
     public function index()
     {
-            $user = new UserManager();
-            $users = $user->getAll();
-            $this->render('./views/template_user.phtml', [
-                'users' => $users
-            ]);
-    }
-
-    public function new()
-    {
         // On anticipe d'éventuelles erreurs en créant un tableau
         $errors = [];
-        if (isset($_POST['submit'])) {
+        $userAdded = false;
+        if (isset($_POST['name'])) {
 
-            $roles = explode(",",$_POST['roles']);
-            foreach ($roles as $role){ $arrayRoles[] = "\"".$role."\"";}
-            $strRoles = "[".implode(",",$arrayRoles)."]";
             // On instancie la class User pour créer un nouvel utilisateur
             $user = new User();
             // Si le formulaire est validé on "hydrate" notre objet
@@ -43,7 +24,7 @@ class UserController extends Controller
                 ->setName($_POST['name'])
                 ->setEmail($_POST['email'])
                 ->setPassword(password_hash($_POST['password'], PASSWORD_DEFAULT))
-                ->setRoles($strRoles);
+                ->setRoles("[]");
             // Si la méthode validate ne retourne pas d'erreurs on fait l'insert dans la table
             $errors = $user->validate();
             if (empty($errors)) {
@@ -56,24 +37,12 @@ class UserController extends Controller
                 // On effectue l'insert dans la table
                 $userManager->insert($userArray);
                 // On est très content !
-                // ON redirige !
-                header('Location:?page=user');
+                $userAdded = true;
             }
         }
-
-        $this->render('./views/template_user_new.phtml', [
-            'errors' => $errors
+        $this->render('./views/template_register.phtml', [
+            'errors' => $errors,
+            'userAdded' => $userAdded
         ]);
-    }
-
-    public function delete()
-    {
-        if (isset($_GET['id'])) {
-            $id = intval($_GET['id']);
-            $user = new UserManager();
-            if ($user->delete($id)) {
-                header("Location:?page=user");
-            }
-        }
     }
 }

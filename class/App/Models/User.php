@@ -1,6 +1,7 @@
 <?php
 namespace App\Models;
 use App\Models\AbstractTable;
+use App\Models\UserManager;
 
 class User extends AbstractTable{
 
@@ -60,10 +61,16 @@ class User extends AbstractTable{
 
     public function validate() : array
     {
-        $errors = [];
+
         /**
          * Pléthore de vérifications dans tous les sens
          */
+        $errors = [];
+        $userManager = new UserManager();
+        $user = $userManager->getUserByEmail($this->email);
+        if ($user){
+            $errors[] = "Cette adresse email existe déjà.";
+        }
         // Si le nom est inférieur à 3 caractères => error
         if (strlen($this->name) < 3){
             $errors[] = "Le champs nom est obligatoire, merci.";
