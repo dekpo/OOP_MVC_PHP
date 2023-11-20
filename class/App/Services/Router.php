@@ -20,7 +20,7 @@ class Router
 
     public function setPage()
     {
-        $this->page = isset($_GET['page']) ? strtolower($_GET['page']) : 'home';
+        $this->page = isset($_GET['page']) && !empty($_GET['page']) ? strtolower($_GET['page']) : 'home';
     }
 
     public function getAction()
@@ -40,8 +40,8 @@ class Router
 
     public function run()
     {
-        $action = 'index';
         $controllerName = 'App\Controllers\\NotFoundController';
+        $action = 'index';
 
         // On charge le controller correspondant
         // En déterminant le nom du controller ex:HomeController

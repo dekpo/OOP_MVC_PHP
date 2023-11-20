@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Controllers;
-
 use App\Controllers\Controller;
 use App\Models\Picture;
 use App\Models\PictureManager;
@@ -9,8 +7,7 @@ use App\Models\PictureManager;
 class PictureController extends Controller
 {
 
-    public function index()
-    {
+    public function index(){
         $pic = new PictureManager();
         $pictures = $pic->getAll();
         $this->render('./views/template_picture.phtml', [
@@ -65,15 +62,19 @@ class PictureController extends Controller
     */
 
             if (empty($errors)) {
-                $pic = new PictureManager();
-                $addPic = $pic->insert([
-                    $_POST['title'],
-                    $_POST['description'],
-                    $newFile,
-                    $_POST['author']
-                ]);
+                // On instancie la class User pour créer un nouvel utilisateur
+                $pic = new Picture();
+                $pic
+                ->setTitle($_POST['title'])
+                ->setDescription($_POST['description'])
+                ->setSrc($newFile)
+                ->setAuthor($_POST['author'])
+                ->setUpdatedAt(date("Y-m-d H:i:s"));
+                $picArray = $pic->toArray();
+                $picManager = new PictureManager();
+                $insert = $picManager->insert($picArray);
                 // Et on redirige sur l'admin_list si la requète retourne le dernier id inséré !
-                if ($addPic->lastInsertId()) header("Location:?page=picture");
+                if ($insert->lastInsertId()) header("Location:?page=picture");
             }
         }
         $this->render('./views/template_picture_new.phtml', [
@@ -125,8 +126,9 @@ class PictureController extends Controller
 
             $pictureArray = $newPic->toArray();
             $pictureArray[] = $id;
+            
             $pictureManager = new PictureManager();
-            $update = $pictureManager->update($pictureArray);
+            $pictureManager->update($pictureArray);
             // Et on redirige sur l'adminlist
             header("Location:?page=picture");
         }

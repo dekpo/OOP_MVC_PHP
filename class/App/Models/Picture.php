@@ -4,16 +4,21 @@ use App\Models\AbstractTable;
 
 class Picture extends AbstractTable
 {
-    private ?string $title = null;
-    private ?string $description = null;
-    private ?string $src = null;
-    private ?string $author = null;
-    private ?string $createdAt = null;
-    private ?string $updatedAt = null;
+    protected ?string $title = null;
+    protected ?string $description = null;
+    protected ?string $src = null;
+    protected ?string $author = null;
+    private ?string $created_at = null;
+    protected ?string $updated_at = null;
+
 
     public function setTitle($title){
         $this->title = $title;
         return $this;
+    }
+
+    public function getTitle(){
+        return $this->title;
     }
 
     public function setDescription($description){
@@ -21,9 +26,17 @@ class Picture extends AbstractTable
         return $this;
     }
 
+    public function getDescription(){
+        return $this->description;
+    }
+
     public function setSrc($src){
         $this->src = $src;
         return $this;
+    }
+
+    public function getSrc(){
+        return $this->src;
     }
 
     public function setAuthor($author){
@@ -31,21 +44,37 @@ class Picture extends AbstractTable
         return $this;
     }
 
-    public function setUpdatedAt(){
-        $this->updatedAt = date("Y-m-d H:i:s");
+    public function getAuthor(){
+        return $this->author;
+    }
+
+    public function setCreatedAt(){
+        $this->created_at = date("Y-m-d H:i:s");
         return $this;
+    }
+
+    public function getCreatedAt(){
+        return $this->created_at;
+    }
+
+    public function setUpdatedAt(){
+        $this->updated_at = date("Y-m-d H:i:s");
+        return $this;
+    }
+
+    public function getUpdatedAt(){
+        return $this->updated_at;
     }
 
     public function toArray(){
         $picArray = [
-            $this->title,
-            $this->description,
-            $this->src,
-            $this->author,
-            $this->updatedAt
+            $this->getTitle(),
+            $this->getDescription(),
+            $this->getSrc(),
+            $this->getAuthor(),
+            $this->getUpdatedAt()
         ];
         return $picArray;
     }
 
-    
 }
