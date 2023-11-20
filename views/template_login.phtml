@@ -1,0 +1,27 @@
+<?php
+/**
+ * Il peut s'avérer pratique de récupérer ici $data
+ * Et éventuellement de déclarer des variables de traitement
+ * */
+$errors = $data['errors'];
+?><h1 class="text-center">Login</h1>
+<?php if (!empty($errors)) : ?>
+    <div class="alert alert-danger" role="alert">
+        <?php foreach ($errors as $error) : ?>
+            <p><?= $error ?></p>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
+<form method="POST">
+<div class="mb-3">
+  <label for="email" class="form-label">Email</label>
+  <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+</div>
+<div class="mb-3">
+  <label for="password" class="form-label">Password</label>
+  <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+</div>
+<div class="mb-3">
+  <input type="submit" class="btn btn-primary" name="submit" value="Login">
+</div>
+</form>

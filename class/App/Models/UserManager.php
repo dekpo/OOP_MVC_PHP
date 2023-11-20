@@ -14,5 +14,13 @@ class UserManager extends AbstractManager
         self::$obj = new User();
     }
 
+    public function getUserByEmail($email = null): array|false
+    {
+        $whereEmail = !is_null($email) ? "WHERE email=?" : "";
+        $row = [];
+        $row = self::$db->select("SELECT * FROM ".self::$tableName." " . $whereEmail. "LIMIT 1", [$email]);
+        return $row;
+    }
+
 
 }
