@@ -60,7 +60,7 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <?php foreach (CONFIG_ROUTES as $key => $value) : ?>
                         <li class="nav-item">
-                            <a class="nav-link <?php if ($page === $key) echo "active"; ?>" href="?page=<?= $key ?>">
+                            <a class="nav-link <?php if (isset($_GET['page']) && $_GET['page'] === $key) echo "active"; ?>" href="?page=<?= $key ?>">
                                 <?= $value ?>
                             </a>
                         </li>
