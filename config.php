@@ -1,5 +1,5 @@
 <?php
-const DB_HOST = "yo";
+const DB_HOST = "localhost";
 const DB_PORT = "3333";
 const DB_NAME = "oop_mvc_php";
 const DB_USER = "root";
