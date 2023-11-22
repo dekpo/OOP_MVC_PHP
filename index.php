@@ -5,9 +5,8 @@ namespace App;
 // dans le "dossier" Services
 use App\Services\Router;
 use App\Services\Authenticator;
-
 // On charge nos class automatiquement
-require_once("./autoload.php");
+require_once("./vendor/autoload.php");
 // On charge la config ma foi ça peut servir aussi
 require_once("./config.php");
 // On charge notre Authenticator
