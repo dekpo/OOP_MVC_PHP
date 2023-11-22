@@ -12,7 +12,8 @@ class HomeController extends Controller{
         $lipsum = new LoremIpsum();
         $this->render('./views/template_home.phtml',[
             'pictures' => $pictures,
-            'lorem' => $lipsum->paragraphs(5)
+            'title' => $lipsum->words(5),
+            'parag' => $lipsum->paragraphs(5)
         ]);
     }
 
