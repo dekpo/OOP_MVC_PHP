@@ -3,7 +3,7 @@
     "description": "A small but smart oop mvc php project",
     "autoload": {
         "psr-4": {
-            "App\\": "./src/App"
+            "App\\": "./class/App"
         }
     },
     "authors": [
@@ -12,5 +12,7 @@
             "email": "dekpo@me.com"
         }
     ],
-    "require": {}
+    "require": {
+        "joshtronic/php-loremipsum": "^2.1"
+    }
 }

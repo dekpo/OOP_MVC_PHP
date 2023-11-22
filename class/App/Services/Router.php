@@ -46,7 +46,7 @@ class Router
         // On charge le controller correspondant
         // En déterminant le nom du controller ex:HomeController
         // Si le fichier existe
-        if (file_exists("./src/App/Controllers/" . ucfirst($this->getPage()) . 'Controller.php')) {
+        if (file_exists("./class/App/Controllers/" . ucfirst($this->getPage()) . 'Controller.php')) {
             $controllerName = 'App\Controllers\\' . ucfirst($this->getPage()) . 'Controller';
         }
         // On définit la méthode correspondante
