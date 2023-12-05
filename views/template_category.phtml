@@ -1,0 +1,43 @@
+<?php
+/**
+ * Il peut s'avérer pratique de récupérer ici $data
+ * Et éventuellement de déclarer des variables de traitement
+ * */
+$categories = $data['categories'];
+?>
+<h1 class="text-center">Admin Category</h1>
+<a href="?page=category&action=new" class="btn btn-primary m-1">Add Category</a>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Slug</th>
+      <th scope="col">Created At</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  <?php foreach ($categories as $category) : ?>
+    <tr>
+      <th scope="row"><?= $category['id'] ?></th>
+      <td><?= $category['name'] ?></td>
+      <td><?= $category['slug'] ?></td>
+      <td><?= $category['created_at'] ?></td>
+      <td>
+        <a href="?page=category&action=edit&id=<?= $category['id'] ?>" class="btn btn-success m-1">Update</a>
+        <a href="javascript:deleteCat(<?= $category['id'] ?>)" class="btn btn-warning m-1">Delete</a>
+      </td>
+    </tr>
+  <?php endforeach ?>
+  </tbody>
+  </table>
+  <script>
+    function deleteCat(id){
+      const question = window.confirm("Are you sure you want to delete category "+id+" ?");
+      if (question){
+        location.href="?page=category&action=delete&id="+id;
+      }
+    }
+  </script>
+  <a href="?page=category&action=new" class="btn btn-primary m-1">Add Category</a>

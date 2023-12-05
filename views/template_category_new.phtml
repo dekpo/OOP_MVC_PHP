@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * Il peut s'avérer pratique de récupérer ici $data
+ * Et éventuellement de déclarer des variables de traitement
+ * */
+$errors = $data['errors'];
+?>
+<h1 class="tex-center">New Category</h1>
+<?php if (!empty($errors)) : ?>
+  <div class="alert alert-danger" role="alert">
+    <?php foreach ($errors as $error) : ?>
+      <p><?= $error ?></p>
+    <?php endforeach; ?>
+  </div>
+<?php endif; ?>
+<form method="POST">
+  <div class="mb-3">
+    <label for="name" class="form-label">Name</label>
+    <input type="text" required class="form-control" id="name" name="name" placeholder="Category name">
+    <button class="mt-4 btn btn-primary" type="submit" id="send" name="submit">Send</button>
+  </div>
+</form>
