@@ -13,6 +13,7 @@
         }
     ],
     "require": {
-        "joshtronic/php-loremipsum": "^2.1"
+        "joshtronic/php-loremipsum": "^2.1",
+        "phpmailer/phpmailer": "^6.8"
     }
 }
