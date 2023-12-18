@@ -82,6 +82,7 @@
                             <?php else: ?>
                             <?php if (!App\Services\Authenticator::isNotGranted("ROLE_ADMIN")): ?>
                             <li><a class="dropdown-item" href="?page=admin">Admin</a></li>
+                            <li><a class="dropdown-item" href="?page=category">Category</a></li>
                             <li><a class="dropdown-item" href="?page=picture">Picture</a></li>
                             <li><a class="dropdown-item" href="?page=user">User</a></li>
                             <li>

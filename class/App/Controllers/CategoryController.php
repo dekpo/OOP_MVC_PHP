@@ -6,6 +6,7 @@ use App\Controllers\Controller;
 use App\Models\Category;
 use App\Models\CategoryManager;
 use App\Services\Authenticator;
+use App\Utils\StringTools;
 
 class CategoryController extends Controller
 {
@@ -36,7 +37,7 @@ class CategoryController extends Controller
             $category = new Category();
             // Je recup le name et je le néttoie puis je l'insert dans mon objet
             $name = strip_tags(trim($_POST['name']));
-            $slugName = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $name)));
+            $slugName = StringTools::slugify($name);
             $category
                 ->setName($name)
                 ->setSlug($slugName);
@@ -74,7 +75,8 @@ class CategoryController extends Controller
             $newCat = new Category();
             // Je recup le name et je le néttoie puis je l'insert dans mon objet
             $name = strip_tags(trim($_POST['name']));
-            $slugName = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $name)));
+            $slug = strip_tags(trim($_POST['slug']));
+            $slugName = StringTools::slugify($slug);
             $newCat
                 ->setName($name)
                 ->setSlug($slugName);

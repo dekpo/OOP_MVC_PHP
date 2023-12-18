@@ -19,6 +19,10 @@ $errors = $data['errors'];
   <input value="<?= $category['name'] ?>" type="text" class="form-control" name="name" id="name" placeholder="Name">
 </div>
 <div class="mb-3">
+  <label for="slug" class="form-label">Slug</label>
+  <input value="<?= $category['slug'] ?>" type="text" class="form-control" name="slug" id="slug" placeholder="Slug">
+</div>
+<div class="mb-3">
   <input type="submit" class="btn btn-primary" name="submit" value="Update Category">
 </div>
 </form>
