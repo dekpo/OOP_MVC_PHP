@@ -10,3 +10,8 @@ const CONFIG_ROUTES = [
     "home" => "Home",
     "gallery" => "Gallery"
 ];
+
+const GOOGLE_RECAPTCHA_PUBLIC_KEY = "6LdwNjUpAAAAAHdwWDuHFvMV5sXm-FauYO_kEHGD";
+const GOOGLE_RECAPTCHA_SECRET = "6LdwNjUpAAAAALTlu1Fp9pBgFA3z959vd8bzXyMI";
+
+const CONFIG_COOKIE_NAME = "OOP_MVC_PHP_AUTH";

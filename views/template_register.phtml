@@ -7,53 +7,67 @@
 $errors = $data['errors'];
 $userAdded = $data['userAdded'];
 ?><h1 class="text-center">Registration</h1>
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 <?php if (!empty($errors)) : ?>
-  <div class="alert alert-danger" role="alert">
-    <?php foreach ($errors as $error) : ?>
-      <p><?= $error ?></p>
-    <?php endforeach; ?>
-  </div>
+    <div class="alert alert-danger" role="alert">
+        <?php foreach ($errors as $error) : ?>
+            <p><?= implode("<br>", $error); ?></p>
+        <?php endforeach; ?>
+    </div>
 <?php endif; ?>
-<?php if (!$userAdded): ?>
-<form method="POST" id="registration_form">
-    <div class="mb-3">
-        <label for="title" class="form-label">Name</label>
-        <input type="text" class="form-control" name="name" id="name" placeholder="Name">
-    </div>
-    <div class="mb-3">
-        <label for="description" class="form-label">Email</label>
-        <input type="text" class="form-control" name="email" id="email" placeholder="Email">
-    </div>
-    <div class="mb-3">
-        <label for="src" class="form-label">Password</label>
-        <input type="password" class="form-control" name="password" id="password" placeholder="Password">
-    </div>
-    <div class="mb-3">
-        <label for="confirm_password" class="form-label">Confirm Password </label>
-        <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm Password">
-    </div>
-    <div class="mb-3">
-        <input type="button" class="btn btn-primary" name="registration_btn" id="registration_btn" value="Register">
-    </div>
-</form>
-<?php else: ?>
+<?php if (!$userAdded) : ?>
+    <form method="POST" id="registration_form">
+        <div class="mb-3">
+            <label for="title" class="form-label">Name</label>
+            <input type="text" class="form-control" name="name" id="name" placeholder="Name">
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Email</label>
+            <input type="text" class="form-control" name="email" id="email" placeholder="Email">
+        </div>
+        <div class="mb-3">
+            <label for="src" class="form-label">Password<input type="checkbox" onclick="toggleVisible('password')"></label>
+            <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+        </div>
+        <div class="mb-3">
+            <label for="confirm_password" class="form-label">Confirm Password<input type="checkbox" onclick="toggleVisible('confirm_password')"></label>
+            <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm Password">
+        </div>
+        <div class="mb-3">
+            <div class="g-recaptcha" data-sitekey="<?= GOOGLE_RECAPTCHA_PUBLIC_KEY ?>"></div>
+        </div>
+        <div class="mb-3">
+            <input type="button" class="btn btn-primary" name="registration_btn" id="registration_btn" value="Register">
+        </div>
+    </form>
+<?php else : ?>
     <div class="alert alert-success" role="alert">
         Compte ajouté avec succès !!! Vous pouvez vous <a href="?page=login">connecter</a> desormais.
     </div>
 <?php endif; ?>
 <script>
+    function toggleVisible(id) {
+        const x = document.getElementById(id);
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
     const password = document.getElementById("password");
     const confirmPassword = document.getElementById("confirm_password");
     const registerBtn = document.getElementById("registration_btn");
     const registerForm = document.getElementById("registration_form");
 
-    if(registerBtn !== null){
-    registerBtn.addEventListener("click", () => {
-        if (password.value != "" && password.value != confirmPassword.value) {
-            alert("Password & Confirm password do not match !");
-            return false;
-        } 
-        registerForm.submit();
-    });
-}
+    if (registerBtn !== null) {
+        registerBtn.addEventListener("click", () => {
+            if (password.value != "" && password.value != confirmPassword.value) {
+                alert("Password & Confirm password do not match !");
+                return false;
+            }
+            registerForm.submit();
+        });
+    }
 </script>

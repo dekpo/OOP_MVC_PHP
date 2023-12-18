@@ -7,6 +7,10 @@ class Authenticator
     public function __construct()
     {
         if (!isset($_SESSION)) session_start();
+        if (isset($_COOKIE[CONFIG_COOKIE_NAME]) && !empty($_COOKIE[CONFIG_COOKIE_NAME])){
+            $user = unserialize($_COOKIE[CONFIG_COOKIE_NAME]);
+            $this->setSessionData($user);
+        }
     }
 
     public static function isNotGranted(string $role): bool
@@ -37,6 +41,9 @@ class Authenticator
     public function logout(): void
     {
         session_destroy();
+        if(isset($_COOKIE[CONFIG_COOKIE_NAME])){
+            setcookie(CONFIG_COOKIE_NAME,"", time()-1 );
+        }
     }
 
 }
