@@ -14,6 +14,7 @@
     ],
     "require": {
         "joshtronic/php-loremipsum": "^2.1",
-        "phpmailer/phpmailer": "^6.8"
+        "phpmailer/phpmailer": "^6.8",
+        "google/recaptcha": "^1.3"
     }
 }
