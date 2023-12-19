@@ -49,6 +49,13 @@
         .img-fluid {
             width: 100%;
         }
+
+        .modal.cookie .modal-dialog {
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            margin: 0 auto;
+        }
     </style>
 </head>
 
@@ -111,20 +118,21 @@
     </main>
     <!-- TOUT LE CONTENU DANS LE TEMPLATE CORRESPONDANT EST DANS LE MAIN  -->
 
-    <div class="modal" tabindex="-1" id="coockieModal">
-        <div class="modal-dialog">
+    <div class="modal cookie" tabindex="-1" id="coockieModal">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Cookie Consent</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Acceptez-vous les cookies ?</p>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla temporibus eius soluta corporis autem asperiores hic, necessitatibus deleniti non, dolor mollitia sequi iusto quisquam alias!</p>
+                     <h3 class="text-end">Acceptez-vous les cookies ?</h3>
                 </div>
                 <div class="modal-footer">
                     <form method="POST">
-                    <button type="submit" name="cookie_no" class="btn btn-danger">No</button>
-                    <button type="submit" name="cookie_yes" class="btn btn-success">Yes</button>
+                        <button type="submit" name="cookie_no" class="btn btn-danger">No</button>
+                        <button type="submit" name="cookie_yes" class="btn btn-success">Yes</button>
                     </form>
                 </div>
             </div>
@@ -139,7 +147,7 @@
     <script>
         const cookieModal = new bootstrap.Modal(document.getElementById('coockieModal'));
         <?php if (!isset($_SESSION['cookie'])) echo 'cookieModal.show();' ?>
-    </script>                             
+    </script>
 </body>
 
 </html>

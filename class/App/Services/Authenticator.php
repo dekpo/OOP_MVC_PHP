@@ -42,7 +42,8 @@ class Authenticator
 
     public function logout(): void
     {
-        session_destroy();
+        // session_destroy();
+        unset($_SESSION['user']);
         if(isset($_COOKIE[CONFIG_COOKIE_NAME])){
             setcookie(CONFIG_COOKIE_NAME,"", time()-1 );
         }
