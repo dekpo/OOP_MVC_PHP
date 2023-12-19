@@ -11,6 +11,8 @@ class Authenticator
             $user = unserialize($_COOKIE[CONFIG_COOKIE_NAME]);
             $this->setSessionData($user);
         }
+        if (isset($_POST['cookie_yes'])) $_SESSION['cookie'] = true;
+        if (isset($_POST['cookie_no'])) $_SESSION['cookie'] = false;
     }
 
     public static function isNotGranted(string $role): bool

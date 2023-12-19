@@ -41,11 +41,13 @@
         .form-control {
             border-radius: 0;
         }
-        p{
+
+        p {
             margin-bottom: 5px;
         }
-        .img-fluid{
-            width:100%;
+
+        .img-fluid {
+            width: 100%;
         }
     </style>
 </head>
@@ -73,23 +75,23 @@
                             Account
                         </a>
                         <ul class="dropdown-menu">
-                        <?php if (!isset($_SESSION['user'])): ?>
-                            <li><a class="dropdown-item" href="?page=login">Login</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="?page=register">Register</a></li>
-                            <?php else: ?>
-                            <?php if (!App\Services\Authenticator::isNotGranted("ROLE_ADMIN")): ?>
-                            <li><a class="dropdown-item" href="?page=admin">Admin</a></li>
-                            <li><a class="dropdown-item" href="?page=category">Category</a></li>
-                            <li><a class="dropdown-item" href="?page=picture">Picture</a></li>
-                            <li><a class="dropdown-item" href="?page=user">User</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <?php endif ?>
-                            <li><a class="dropdown-item" href="?page=logout">Logout</a></li>
+                            <?php if (!isset($_SESSION['user'])) : ?>
+                                <li><a class="dropdown-item" href="?page=login">Login</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="?page=register">Register</a></li>
+                            <?php else : ?>
+                                <?php if (!App\Services\Authenticator::isNotGranted("ROLE_ADMIN")) : ?>
+                                    <li><a class="dropdown-item" href="?page=admin">Admin</a></li>
+                                    <li><a class="dropdown-item" href="?page=category">Category</a></li>
+                                    <li><a class="dropdown-item" href="?page=picture">Picture</a></li>
+                                    <li><a class="dropdown-item" href="?page=user">User</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                <?php endif ?>
+                                <li><a class="dropdown-item" href="?page=logout">Logout</a></li>
                             <?php endif ?>
                         </ul>
                     </li>
@@ -105,16 +107,39 @@
 
     <!-- DANS LE MAIN ON CHARGE LE TEMPLATE CORRESPONDANT A LA PAGE -->
     <main class="flex-shrink-0 container-fluid">
-    <?= $template ?>
+        <?= $template ?>
     </main>
     <!-- TOUT LE CONTENU DANS LE TEMPLATE CORRESPONDANT EST DANS LE MAIN  -->
 
+    <div class="modal" tabindex="-1" id="coockieModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cookie Consent</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Acceptez-vous les cookies ?</p>
+                </div>
+                <div class="modal-footer">
+                    <form method="POST">
+                    <button type="submit" name="cookie_no" class="btn btn-danger">No</button>
+                    <button type="submit" name="cookie_yes" class="btn btn-success">Yes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <footer class="bg-body-secondary footer mt-auto p-3">
         <section class="container-fluid text-center">
             &copy; DWWM CCI LYON
         </section>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script>
+        const cookieModal = new bootstrap.Modal(document.getElementById('coockieModal'));
+        <?php if (!isset($_SESSION['cookie'])) echo 'cookieModal.show();' ?>
+    </script>                             
 </body>
 
 </html>
