@@ -32,8 +32,8 @@ $key = $data['key'];
         </div>
     </form>
 <?php else : ?>
-    <div class="alert alert-success" role="alert">
-        Veuillez utiliser le lien suivant pour réinitialiser votre mot de passe. <a href="?page=reset&key=<?= $key ?>">Reset Password</a>.
+    <div class="alert alert-success" role="alert"><?= $key ?>
+        Veuillez utiliser le lien suivant pour réinitialiser votre mot de passe. <a href="?page=resetpass&key=<?= $key ?>">Reset Password</a>.
     </div>
 <?php endif; ?>
 <script>
