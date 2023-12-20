@@ -8,7 +8,7 @@ class Reset extends AbstractTable{
     protected ?int $user_id = null;
     protected ?string $reset_key = null;
     private ?string $created_at = null;
-    protected ?int $is_active = null;
+    private ?int $is_active = null;
 
     public function setUserId(?int $id){
         $this->id = $id;
@@ -32,6 +32,7 @@ class Reset extends AbstractTable{
 
     public function setIsActive(int $int){
         $this->is_active = $int;
+        return $this;
     }
 
     public function getIsActive(): int
@@ -43,8 +44,7 @@ class Reset extends AbstractTable{
     {
         $resetArray = [
             $this->getUserId(),
-            $this->getResetKey(),
-            $this->getIsActive()
+            $this->getResetKey()
         ];
         return $resetArray;
     }

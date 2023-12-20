@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Controllers\Controller;
+use App\Models\Reset;
+use App\Models\ResetManager;
 use App\Models\User;
 use App\Models\UserManager;
 use App\Utils\StringTools;
@@ -38,6 +40,12 @@ class ResetpassController extends Controller
             
             if (empty($errors)) {
                 $key = StringTools::get24CharsRandly();
+                $reset = new Reset();
+                $reset
+                ->setUserId($verifUser['id'])
+                ->setResetKey($key);
+                $manager = new ResetManager();
+                $manager->insert($reset->toArray());
                 $emailFetch = true;
             }
         }
