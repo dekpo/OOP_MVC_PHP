@@ -58,4 +58,19 @@ class ResetpassController extends Controller
             'user_id' => $user_id
         ]);
     }
+
+    public function reset(){
+        $user_id = intval($_GET['user_id']);
+        $key = $_GET['key'];
+
+        $errors = [];
+        $isKeyValidated = false;
+        $isPasswordUpdated = false;
+
+        $this->render('./views/template_reset_new_password.phtml', [
+            'errors' => $errors,
+            'isKeyValidated' => $isKeyValidated,
+            'isPasswordUpdated' => $isPasswordUpdated
+        ]); 
+    }
 }
