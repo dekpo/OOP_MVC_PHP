@@ -11,11 +11,11 @@ class Reset extends AbstractTable{
     private ?int $is_active = null;
 
     public function setUserId(?int $id){
-        $this->id = $id;
+        $this->user_id = $id;
         return $this;
     }
 
-    public function getUserId(): int
+    public function getUserId(): int|null
     {
         return $this->user_id;
     }
