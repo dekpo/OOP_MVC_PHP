@@ -14,4 +14,10 @@ class ApiController extends Controller
         echo json_encode($pictures);
     }
 
+    public function add(){
+       echo json_encode($_POST);
+    }
+
+
+
 }
