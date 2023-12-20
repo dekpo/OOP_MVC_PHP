@@ -14,4 +14,19 @@ class StringTools
         $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $text)));
         return $slug;                    
     }
+
+    static function getTwelveLastChars(string $text)
+    {
+        $str = substr(str_replace(".","",$text),-12);
+        return $str;
+    }
+
+    static function get24CharsRandly()
+    {
+        $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        $strRand = str_shuffle($chars);
+        $str = substr($strRand,-24);
+        return $str;
+
+    }
 }

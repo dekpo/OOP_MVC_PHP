@@ -1,0 +1,62 @@
+<?php
+/**
+ * Il peut s'avérer pratique de récupérer ici $data
+ * Et éventuellement de déclarer des variables de traitement
+ * */
+$errors = $data['errors'];
+$emailFetch = $data['emailFetch'];
+$key = $data['key'];
+?><h1 class="text-center">Reset Password</h1>
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<?php if (!empty($errors)) : ?>
+    <div class="alert alert-danger" role="alert">
+        <?php foreach ($errors as $error) : ?>
+            <p><?= implode("<br>", $error); ?></p>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
+<?php if (!$emailFetch) : ?>
+    <form method="POST" id="registration_form">
+        
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="text" class="form-control" name="email" id="email" placeholder="Email">
+        </div>
+        <div class="mb-3">
+            <div class="g-recaptcha" data-sitekey="<?= GOOGLE_RECAPTCHA_PUBLIC_KEY ?>"></div>
+        </div>
+        <div class="mb-3">
+            <input type="submit" class="btn btn-primary" name="reset_btn" id="reset_btn" value="Reset Password Please !">
+        </div>
+    </form>
+<?php else : ?>
+    <div class="alert alert-success" role="alert">
+        Veuillez utiliser le lien suivant pour réinitialiser votre mot de passe. <a href="?page=reset&key=<?= $key ?>">Reset Password</a>.
+    </div>
+<?php endif; ?>
+<script>
+    function toggleVisible(id) {
+        const x = document.getElementById(id);
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+    const password = document.getElementById("password");
+    const confirmPassword = document.getElementById("confirm_password");
+    const registerBtn = document.getElementById("registration_btn");
+    const registerForm = document.getElementById("registration_form");
+
+    if (registerBtn !== null) {
+        registerBtn.addEventListener("click", () => {
+            if (password.value != "" && password.value != confirmPassword.value) {
+                alert("Password & Confirm password do not match !");
+                return false;
+            }
+            registerForm.submit();
+        });
+    }
+</script>
