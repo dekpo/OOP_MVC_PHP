@@ -67,15 +67,19 @@ class ResetpassController extends Controller
         $isKeyValidated = false;
         $isPasswordUpdated = false;
 
-        $manager = new ResetManager();
-        $verifKey = $manager->getOneByUserKey($user_id,$key);
+        $rmanager = new ResetManager();
+        $verifKey = $rmanager->getOneByUserKey($user_id,$key);
         $isKeyValidated = $verifKey ?? true;
 
         if (isset($_POST['password'])){
             $passwordHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
-            $manager = new UserManager();
-            $update = $manager->updateField('password',$passwordHash,$user_id);
-            if ($update) $isPasswordUpdated = true;
+            $umanager = new UserManager();
+            $update = $umanager->updateField('password',$passwordHash,$user_id);
+            if ($update){
+                $isPasswordUpdated = true;
+                $rmanager = new ResetManager();
+                $rmanager->updateField('is_active',0,$verifKey['id']);
+            }
         }
 
         $this->render('./views/template_reset_new_password.phtml', [
