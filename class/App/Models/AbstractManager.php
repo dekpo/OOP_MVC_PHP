@@ -44,6 +44,12 @@ abstract class AbstractManager
         return $update;
     }
 
+    public function updateField($field,$value,$id)
+    {  
+        $update = self::$db->query("UPDATE ".self::$tableName." SET `".$field."` = '".$value."' WHERE id=?", [$id]);
+        return $update;
+    }
+
     public function delete($id = null)
     {
         if (!is_null($id)) {

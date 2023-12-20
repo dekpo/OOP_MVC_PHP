@@ -14,4 +14,11 @@ class ResetManager extends AbstractManager
         self::$obj = new Reset();
     }
     
+    public function getOneByUserKey($user_id = null,$key = null): array|bool
+    {
+        $where = !is_null($user_id) ? "WHERE user_id=? AND reset_key=? AND is_active=1" : "";
+        $row = [];
+        $row = self::$db->select("SELECT * from ".self::$tableName." " . $where . " LIMIT 1", [$user_id, $key]);
+        return $row;
+    }
 }

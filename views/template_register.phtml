@@ -28,12 +28,14 @@ $userAdded = $data['userAdded'];
             <input type="text" class="form-control" name="email" id="email" placeholder="Email">
         </div>
         <div class="mb-3">
-            <label for="src" class="form-label">Password<input type="checkbox" onclick="toggleVisible('password')"></label>
+            <label for="src" class="form-label">Password</label>
             <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+            <p><input type="checkbox" onclick="toggleVisible('password')"> Afficher</p>
         </div>
         <div class="mb-3">
-            <label for="confirm_password" class="form-label">Confirm Password<input type="checkbox" onclick="toggleVisible('confirm_password')"></label>
+            <label for="confirm_password" class="form-label">Confirm Password</label>
             <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm Password">
+            <p><input type="checkbox" onclick="toggleVisible('confirm_password')"> Afficher</p>   
         </div>
         <div class="mb-3">
             <div class="g-recaptcha" data-sitekey="<?= GOOGLE_RECAPTCHA_PUBLIC_KEY ?>"></div>

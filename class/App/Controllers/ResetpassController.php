@@ -60,12 +60,23 @@ class ResetpassController extends Controller
     }
 
     public function reset(){
-        $user_id = intval($_GET['user_id']);
-        $key = $_GET['key'];
+        $user_id = isset($_GET['user_id']) ? intval($_GET['user_id']) : 0;
+        $key = isset($_GET['key']) ? $_GET['key'] : "";
 
         $errors = [];
         $isKeyValidated = false;
         $isPasswordUpdated = false;
+
+        $manager = new ResetManager();
+        $verifKey = $manager->getOneByUserKey($user_id,$key);
+        $isKeyValidated = $verifKey ?? true;
+
+        if (isset($_POST['password'])){
+            $passwordHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            $manager = new UserManager();
+            $update = $manager->updateField('password',$passwordHash,$user_id);
+            if ($update) $isPasswordUpdated = true;
+        }
 
         $this->render('./views/template_reset_new_password.phtml', [
             'errors' => $errors,
