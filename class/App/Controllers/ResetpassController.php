@@ -19,6 +19,7 @@ class ResetpassController extends Controller
         $errors = [];
         // On peut définir une clé $key vide au départ
         $key = "";
+        $user_id = null;
         $emailFetch = false;
         if (isset($_POST['email'])) {
 
@@ -40,9 +41,10 @@ class ResetpassController extends Controller
             
             if (empty($errors)) {
                 $key = StringTools::get24CharsRandly();
+                $user_id = $verifUser['id'];
                 $reset = new Reset();
                 $reset
-                ->setUserId($verifUser['id'])
+                ->setUserId($user_id)
                 ->setResetKey($key);
                 $manager = new ResetManager();
                 $manager->insert($reset->toArray());
@@ -52,7 +54,8 @@ class ResetpassController extends Controller
         $this->render('./views/template_resetpass.phtml', [
             'errors' => $errors,
             'emailFetch' => $emailFetch,
-            'key' => $key
+            'key' => $key,
+            'user_id' => $user_id
         ]);
     }
 }
