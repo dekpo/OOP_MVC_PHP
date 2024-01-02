@@ -26,7 +26,7 @@ class ApiController extends Controller
 
     public function login()
     {
-        if (isset($_POST['email']) && isset($_POST['email'])) {
+        if (isset($_POST['email']) && isset($_POST['password'])) {
             $userJwt = false;
             $email = strip_tags($_POST['email']);
             $password = strip_tags($_POST['password']);
