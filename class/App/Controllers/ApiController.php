@@ -21,7 +21,18 @@ class ApiController extends Controller
 
     public function add()
     {
-        echo json_encode($_POST);
+        $handler = new JwtHandler();
+        $jwt = (array)json_decode($handler->decodeFromHeaders());
+        if(!empty($jwt)) {
+            $method = $_SERVER['REQUEST_METHOD'];
+            if ($method === 'PUT') {
+                parse_str(file_get_contents('php://input'), $_PUT);
+                print_r($_PUT); 
+                }
+        } else {
+            header("HTTP/1.1 401 Unauthorized");
+            exit;
+        }
     }
 
     public function login()
