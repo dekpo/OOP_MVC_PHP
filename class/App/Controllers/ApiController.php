@@ -1,18 +1,17 @@
 <?php
+
 namespace App\Controllers;
+
 use App\Controllers\Controller;
 use App\Models\PictureManager;
-use Firebase\JWT\JWT;
-
-use Firebase\JWT\ExpiredException;
-use Firebase\JWT\SignatureInvalidException;
-use Firebase\JWT\BeforeValidException;
-use Firebase\JWT\Key;
+use App\Services\Authenticator;
+use App\Services\JwtHandler;
 
 class ApiController extends Controller
 {
 
-    public function index(){
+    public function index()
+    {
         $pic = new PictureManager();
         $pictures = $pic->getAll(4);
         header("Access-Control-Allow-Origin: *");
@@ -20,41 +19,30 @@ class ApiController extends Controller
         echo json_encode($pictures);
     }
 
-    public function add(){
-       echo json_encode($_POST);
+    public function add()
+    {
+        echo json_encode($_POST);
     }
 
-    public function login(){
-        $secret_key = "laclesecretedukgbciafbiettoutletoutime";
-        $user_id = 6; // This must be the user id retrieved by a query
-
-        $issued_at = time();
-        $expiration_time = $issued_at + (10 * 60); // valid for 10 minutes
-
-    $payload = array(
-        'iat' => $issued_at,
-        'exp' => $expiration_time,
-        'sub' => $user_id
-    );
-
-    echo JWT::encode($payload, $secret_key, 'HS256');
-    }
-
-    public function auth(){
-        $jwt_token = $_POST['jwt'];
-        $secret_key = "laclesecretedukgbciafbiettoutletoutime";
-        try {
-            return JWT::decode($jwt_token, new Key($secret_key, 'HS256'));
-        } catch (ExpiredException $e) {
-            throw new \Exception('Token expired');
-        } catch (SignatureInvalidException $e) {
-            throw new \Exception('Invalid token signature');
-        } catch (BeforeValidException $e) {
-            throw new \Exception('Token not valid yet');
-        } catch (\Exception $e) {
-            throw new \Exception('Invalid token');
+    public function login()
+    {
+        if (isset($_POST['email']) && isset($_POST['email'])) {
+            $userJwt = false;
+            $email = strip_tags($_POST['email']);
+            $password = strip_tags($_POST['password']);
+            $auth = new Authenticator();
+            $authUser = $auth->loginApi($email, $password);
+            if ($authUser['isAuth']) {
+                $jwt = new JwtHandler();
+                $userJwt = $jwt->encode($authUser['user']);
+            }
+            echo json_encode(['token' => $userJwt]);
         }
-        echo "You're authenticated !";
     }
 
+    public function auth()
+    {
+        $jwt = new JwtHandler();
+        echo $jwt->decodeFromHeaders();
+    }
 }

@@ -1,5 +1,6 @@
 <?php
 namespace App\Services;
+
 use App\Models\UserManager;
 
 class Authenticator
@@ -35,15 +36,36 @@ class Authenticator
             $verif = password_verify($password,$user['password']);
         }
         if ($verif){
+            // just remove password
+            unset($user['password']);
+            // for not storing password in session & cookie
             $this->setSessionData($user);
         }
         return $verif;
     }
 
+    public function loginApi(string $email,string $password): array
+    {
+        $verif = false;
+        $userManager = new UserManager();
+        $user = $userManager->getUserByEmail($email);
+        if ($user) {
+            $verif = password_verify($password,$user['password']);
+        }
+        if ($verif){
+            // just remove password
+            unset($user['password']);
+        }
+        return ['isAuth' => $verif,'user' => $user];
+    }
+
     public function logout(): void
     {
-        // session_destroy();
+        // session_destroy(); // Un peu trop violent car on perd aussi le choix des cookies
+        // Donc faire un unset des infos $_SESSION['user'] est plus adapté
         unset($_SESSION['user']);
+        // on en profite pour "vider" le cookie s'il existe
+        // en mettant sa date d'expiration à une seconde de moins que "maintenant"
         if(isset($_COOKIE[CONFIG_COOKIE_NAME])){
             setcookie(CONFIG_COOKIE_NAME,"", time()-1 );
         }
